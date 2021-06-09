@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'demo-calendar';
+
+  week: any = ["Sunday","Monday","Wednesday","Thursday","Friday","Saturday"];
 }
