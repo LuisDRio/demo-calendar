@@ -1,0 +1,28 @@
+div{
+    text-align: center;
+}
+
+ol{
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+li{
+    text-align: center;
+    font-size: 25px;
+    color: white;
+    background-color: rgb(24, 91, 168);
+}
+
+table{
+    border-collapse: collapse;
+}
+
+table tr, td{
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+td:hover {background-color: rgb(128, 174, 226);}

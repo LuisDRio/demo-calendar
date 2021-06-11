@@ -1,8 +1,72 @@
-<div>
-  <div id="header">
-
+<div class="calendar">
+  <div class="calendar-header">
+    <h1>June, 2021</h1>
   </div>
   <ol>
-    <li *ngFor="let day of week" id="day">{{day}}</li>
+    <li *ngFor="let day of week" class="day">{{day}}</li>
+    <table *ngFor="let day of daysOfMonth;let first = first;let i = index" [style.gridColumnStart]="first ? indexDay : 'auto'"
+      [style.background-color]="(day == 5 || day == 12 || day == 19 || day == 26 || day == 6 || day == 13 || day == 20 || day == 27) ? 'rgba(110, 127, 136, 0.221)' : 'auto' "
+      [style.color]="(day == 5 || day == 12 || day == 19 || day == 26 || day == 6 || day == 13 || day == 20 || day == 27) ? 'blue' : 'auto' ">
+      <tr>
+        <td>{{day}}</td>
+      </tr>
+      <tr *ngFor="let reminder of arrayReminder[i];let j = index" [ngStyle]="{'background': reminder?.color}">
+        <td (click)="editForm(i,j)">
+          <div>{{reminder?.time}} {{reminder?.activity}} {{reminder?.city}}</div>
+        </td>
+      </tr>
+    </table>
   </ol>
+</div>
+<br>
+<div class="card">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="reminderForm">
+            <div class="day">
+              <input type="number" name="day" class="day" formControlName="day" placeholder="Introduce el día">
+            </div>
+            <br>
+            <div class="time">
+              <input type="time" name="time" class="time" formControlName="time">
+            </div>
+            <br>
+            <div class="activity">
+              <textarea maxlength="30" name="activity" class="activity" formControlName="activity" placeholder="Introduce el recordatorio"></textarea>
+            </div>
+            <br>
+            <div class="city">
+              <input type="text" name="city" class="city" formControlName="city" placeholder="Introduce la ciudad">
+            </div>
+            <br>
+            <select name="color" class="color" formControlName="color">
+               <option *ngFor="let color of colors" [ngStyle]="{'background': color.value}"> 
+                     {{color.name}}
+               </option>
+          </select>
+          <br>
+          <br>
+          <div class="btn-group" role="group">
+            <button (click)="cleanForm()" type="button" class="btn btn-secondary" style="margin-right: 10px;">Limpiar</button>
+            <button (click)="saveForm()" type="button" class="btn btn-secondary" style="margin-right: 10px;">Guardar</button>
+            <button (click)="deleteReminder()" type="button" class="btn btn-secondary" style="margin-right: 10px;">Borrar</button>
+            <button (click)="deleteAll()" type="button" class="btn btn-secondary">Borrar Todo</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Weather</h5>
+          <div *ngIf="weather" id="weather">
+            <p class="card-text">{{weather.weather[0].description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
